@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Analyzer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            transition: transform 0.3s ease-in-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .container:hover {
+            transform: scale(1.03);
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+
+        .file-input-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: inset 0 5px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .file-input-container input[type="file"] {
+            display: none;
+        }
+
+        .file-input-label {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .file-input-label:hover {
+            background: #ff4757;
+        }
+
+        .submit-btn {
+            background: #17c3b2;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #14a098;
+        }
+
+        .file-name {
+            margin-top: 10px;
+            color: #fff;
+            font-size: 14px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload CSV for Analysis</h2>
+        <form action="/analyze" method="post" enctype="multipart/form-data" id="uploadForm">
+            <div class="file-input-container">
+                <label for="file-input" class="file-input-label">Choose a CSV File</label>
+                <input type="file" name="file" id="file-input" accept=".csv" onchange="updateFileName()">
+                <p id="file-name" class="file-name">No file selected</p>
+            </div>
+            <input type="submit" class="submit-btn" value="Analyze">
+        </form>
+    </div>
+
+    <script>
+        function updateFileName() {
+            const fileInput = document.getElementById('file-input');
+            const fileName = document.getElementById('file-name');
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+            } else {
+                fileName.textContent = 'No file selected';
+            }
+        }
+
+        document.getElementById("uploadForm").onsubmit = function (event) {
+            const fileInput = document.getElementById("file-input");
+            if (fileInput.files.length === 0) {
+                event.preventDefault();
+                alert("Please select a CSV file to upload.");
+            }
+        }
+    </script>
+</body>
+</html>

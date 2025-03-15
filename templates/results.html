@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Performance Results</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .container {
+            margin-top: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 960px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .best-model {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .best-model p {
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        th {
+            background: #4ca1af;
+            color: white;
+            font-size: 18px;
+        }
+
+        td {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+        }
+
+        tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: #4ca1af;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #3a8694;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .best-model {
+                font-size: 16px;
+            }
+
+            table, th, td {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="best-model">
+            <h2>Best Performing Algorithm</h2>
+            <p><strong>Model:</strong> {{ best_model.model }}</p>
+            <p><strong>Accuracy:</strong> {{ best_model.accuracy }}%</p>
+            <p><strong>Precision:</strong> {{ best_model.precision }}%</p>
+            <p><strong>Recall:</strong> {{ best_model.recall }}%</p>
+            <p><strong>F1 Score:</strong> {{ best_model.f1_score }}%</p>
+        </div>
+
+        <h2>All Model Performance</h2>
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>Accuracy</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1 Score</th>
+            </tr>
+            {% for result in results %}
+            <tr>
+                <td style="font-weight: 500;">{{ result.model }}</td>
+                <td>{{ result.accuracy }}%</td>
+                <td>{{ result.precision }}%</td>
+                <td>{{ result.recall }}%</td>
+                <td>{{ result.f1_score }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <a href="/" class="back-btn">Back to Home</a>
+    </div>
+</body>
+</html>
